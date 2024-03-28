@@ -68,14 +68,7 @@ const images = [
    ];
 
    const gallery = document.querySelector(".gallery");
-   
    gallery.insertAdjacentHTML("beforeend", createGalerry(images))
-
-{/* <li class="gallery__item">
-    <a class="gallery__link" href="${original}">
-        <img class="gallery__image" src="${preview}" alt="${description}" />
-   </a>
-</li>` */}
 
    function createGalerry(arr) {
        return arr
