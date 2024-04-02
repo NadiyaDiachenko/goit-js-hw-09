@@ -6,34 +6,31 @@ const textarea = form.querySelector("textarea");
 const input = form.querySelector("input[name='email']");
 
 form.addEventListener("submit", handleSubmit);
-textarea.addEventListener("input", onTextareaInput);
-input.addEventListener("input", handleEmailInput);
+form.addEventListener("input", handleInput);
 
 checkLocalStorage();
 
 function handleSubmit(event){
     event.preventDefault();
 
+    const currentFormState = getFeedbackFormState();
+console.log(currentFormState);
     event.currentTarget.reset();
     localStorage.removeItem(STORAGE_KEY)
 
 }
 
-function onTextareaInput(event){
-    const message = event.target.value
+function handleInput(event){
+    const el = event.target
+    const elName = el.name;
+    const elValue = el.value.trim()
+
     const previousFormState = getFeedbackFormState()
-    const newFormState = JSON.stringify({...previousFormState, message})
+    const newFormState = JSON.stringify({...previousFormState, [elName]: elValue})
 
     localStorage.setItem(STORAGE_KEY, newFormState);
 }
 
-function handleEmailInput(event){
-    const email = event.target.value;
-    const previousFormState = getFeedbackFormState()
-    const newFormState = JSON.stringify({...previousFormState, email})
-
-    localStorage.setItem(STORAGE_KEY, newFormState)
-}
 
  function getFeedbackFormState() {
     const data = JSON.parse(localStorage.getItem(STORAGE_KEY));
